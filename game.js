@@ -6,6 +6,12 @@ gameport.appendChild(renderer.view);
 // create stage
 var stage = new PIXI.Container();
 
+// score board
+var score = 0;
+var score_board = new PIXI.Text("Home: " + score + "    Away: 0", {font:"20px Arial", fill:"white"});
+score_board.position.x = 125;
+score_board.position.y = 0;
+
 //create sprites
 var background_texture = new PIXI.Texture.fromImage("space_sprite.png");
 var background_sprite = new PIXI.Sprite(background_texture);
@@ -28,10 +34,12 @@ hoop_sprite.anchor.y = 0.5;
 hoop_sprite.position.x = 100;
 hoop_sprite.position.y = 100;
 
+
 // add sprites as children to stage
 stage.addChild(background_sprite);
 stage.addChild(bball_sprite);
 stage.addChild(hoop_sprite);
+stage.addChild(score_board);
 
 // listiner for keyboard input
 document.addEventListener('keydown', onKeyDown);
@@ -65,6 +73,8 @@ function checkPosition() {
     // check position of ball and position of hoop for basket.  If made basket, hoop respawns in random location
     if (hoop_sprite.position.x === bball_sprite.position.x && hoop_sprite.position.y === bball_sprite.position.y) {
         createHoop();
+        score += 2;
+        score_board.setText("Home: " + score + "    Away: 0");
     }
 }
 
